@@ -6,8 +6,6 @@
 # <https://github.com/TeamUltroid/pyUltroid/blob/main/LICENSE>.
 
 from . import *
-from ryuzakilib import RyuzakiLib
-from pyrogram import Client, filters
 
 def main():
     import os
