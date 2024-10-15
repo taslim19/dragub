@@ -6,7 +6,7 @@
 # <https://github.com/TeamUltroid/pyUltroid/blob/main/LICENSE>.
 
 from . import *
-
+from ryuzakilib import RyuzakiLib
 
 def main():
     import os
