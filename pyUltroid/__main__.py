@@ -7,6 +7,7 @@
 
 from . import *
 from ryuzakilib import RyuzakiLib
+from pyrogram import Client, filters
 
 def main():
     import os
