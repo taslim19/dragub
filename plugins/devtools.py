@@ -78,7 +78,7 @@ async def _(event):
     xx = await event.eor(get_string("com_1"))  # Show a loading message
     reply_to_id = event.reply_to_msg_id or event.id
     stdout, stderr = await bash(cmd, run_code=1)
-    OUT = f"**🤍🤍BASH\n\n• COMMAND:**\n`{cmd}` \n\n"
+    OUT = f"**🤍🤍BASH\n\n❤️‍🔥 COMMAND:**\n`{cmd}` \n\n"
     err, out = "", ""
     result_emoji = ""  # Initialize the emoji variable
 
@@ -130,7 +130,7 @@ async def _(event):
     if not stderr and not stdout:
         out = "**• OUTPUT:**\n`Success`"
 
-    OUT += err + out + f"\n\n**🐰 Status:** {result_emoji}"  # Add the status emoji
+    OUT += err + out + f"\n\n**Status❤️‍🔥:** {result_emoji}"  # Add the status emoji
 
     if len(OUT) > 4096:
         ultd = err + out
@@ -267,7 +267,7 @@ async def _(event):
     if mode == "silent":
         if exc:
             msg = f"• <b>EVAL ERROR\n\n• CHAT:</b> <code>{get_display_name(event.chat)}</code> [<code>{event.chat_id}</code>]"
-            msg += f"\n\n∆ <b>CODE:</b>\n<code>{cmd}</code>\n\n∆ <b>ERROR:</b>\n<code>{exc}</code>"
+            msg += f"\n\n∆ <b>CODE:</b>\n<code>{cmd}</code>\n\n∆ <b>💔💔ERROR💔💔:</b>\n<code>{exc}</code>"
             log_chat = udB.get_key("LOG_CHANNEL")
             if len(msg) > 4000:
                 with BytesIO(msg.encode()) as out_file:
