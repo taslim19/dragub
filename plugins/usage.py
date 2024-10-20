@@ -20,6 +20,7 @@
 import math
 import shutil
 from random import choice
+from io import BytesIO
 
 from pyUltroid.fns import some_random_headers
 
@@ -32,6 +33,7 @@ from . import (
     humanbytes,
     udB,
     ultroid_cmd,
+    Carbon,  # Make sure Carbon is imported
 )
 
 HEROKU_API = None
@@ -57,43 +59,21 @@ async def usage_finder(event):
     try:
         opt = event.text.split(" ", maxsplit=1)[1]
     except IndexError:
-        return await x.edit(simple_usage())
+        return await x.edit(await get_full_usage())
 
     if opt == "db":
-        await x.edit(db_usage())
+        output = db_usage()
     elif opt == "heroku":
         is_hk, hk = await heroku_usage()
-        await x.edit(hk)
+        output = hk
     else:
-        await x.edit(await get_full_usage())
+        output = await get_full_usage()
 
-
-def simple_usage():
-    try:
-        import psutil
-    except ImportError:
-        return "Install 'psutil' to use this..."
-    total, used, free = shutil.disk_usage(".")
-    cpuUsage = psutil.cpu_percent()
-    memory = psutil.virtual_memory().percent
-    disk = psutil.disk_usage("/").percent
-    upload = humanbytes(psutil.net_io_counters().bytes_sent)
-    down = humanbytes(psutil.net_io_counters().bytes_recv)
-    TOTAL = humanbytes(total)
-    USED = humanbytes(used)
-    FREE = humanbytes(free)
-    return get_string("usage_simple").format(
-        TOTAL,
-        USED,
-        FREE,
-        upload,
-        down,
-        cpuUsage,
-        memory,
-        disk,
-    )
-
-
+    # Send output in Carbon format
+    carbon_image = await Carbon(code=output, file_name="usage")
+    await event.reply(file=carbon_image)
+    await x.delete()
+    
 async def heroku_usage():
     try:
         import psutil
