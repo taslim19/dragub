@@ -20,7 +20,6 @@
 import math
 import shutil
 from random import choice
-from io import BytesIO
 
 from pyUltroid.fns import some_random_headers
 
@@ -33,7 +32,6 @@ from . import (
     humanbytes,
     udB,
     ultroid_cmd,
-    Carbon,  # Make sure Carbon is imported
 )
 
 HEROKU_API = None
@@ -59,21 +57,43 @@ async def usage_finder(event):
     try:
         opt = event.text.split(" ", maxsplit=1)[1]
     except IndexError:
-        return await x.edit(await get_full_usage())
+        return await x.edit(simple_usage())
 
     if opt == "db":
-        output = db_usage()
+        await x.edit(db_usage())
     elif opt == "heroku":
         is_hk, hk = await heroku_usage()
-        output = hk
+        await x.edit(hk)
     else:
-        output = await get_full_usage()
+        await x.edit(await get_full_usage())
 
-    # Send output in Carbon format
-    carbon_image = await Carbon(code=output, file_name="usage")
-    await event.reply(file=carbon_image)
-    await x.delete()
-    
+
+def simple_usage():
+    try:
+        import psutil
+    except ImportError:
+        return "Install 'psutil' to use this..."
+    total, used, free = shutil.disk_usage(".")
+    cpuUsage = psutil.cpu_percent()
+    memory = psutil.virtual_memory().percent
+    disk = psutil.disk_usage("/").percent
+    upload = humanbytes(psutil.net_io_counters().bytes_sent)
+    down = humanbytes(psutil.net_io_counters().bytes_recv)
+    TOTAL = humanbytes(total)
+    USED = humanbytes(used)
+    FREE = humanbytes(free)
+    return get_string("usage_simple").format(
+        TOTAL,
+        USED,
+        FREE,
+        upload,
+        down,
+        cpuUsage,
+        memory,
+        disk,
+    )
+
+
 async def heroku_usage():
     try:
         import psutil
@@ -148,18 +168,12 @@ async def heroku_usage():
 
 
 def db_usage():
-    total = 0  # Initialize total to a default value
     if udB.name == "Mongo":
         total = 512
     elif udB.name == "Redis":
         total = 30
     elif udB.name == "SQL":
         total = 20
-    elif udB.name == "localdb":  # Add support for localdb
-        total = 100  # Set an arbitrary total for localdb, adjust as needed
-    else:
-        return f"**Unsupported Database Type:** {udB.name}"  # Optional error message
-
     total = total * (2**20)
     used = udB.usage
     a = f"{humanbytes(used)}/{humanbytes(total)}"
