@@ -148,12 +148,16 @@ async def heroku_usage():
 
 
 def db_usage():
+    total = 0  # Initialize total to a default value
     if udB.name == "Mongo":
         total = 512
     elif udB.name == "Redis":
         total = 30
     elif udB.name == "SQL":
         total = 20
+    else:
+        return f"**Unsupported Database Type:** {udB.name}"  # Optional error message
+
     total = total * (2**20)
     used = udB.usage
     a = f"{humanbytes(used)}/{humanbytes(total)}"
