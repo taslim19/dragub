@@ -130,7 +130,7 @@ async def _(event):
     if not stderr and not stdout:
         out = "**• OUTPUT:**\n`Success`"
 
-    OUT += err + out + f"\n\n**Status:** {result_emoji}"  # Add the status emoji
+    OUT += err + out + f"\n\n**🐰 Status:** {result_emoji}"  # Add the status emoji
 
     if len(OUT) > 4096:
         ultd = err + out
