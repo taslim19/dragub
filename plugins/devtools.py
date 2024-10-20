@@ -74,13 +74,20 @@ async def _(event):
             rayso = True
     except IndexError:
         return await event.eor(get_string("devs_1"), time=10)
-    xx = await event.eor(get_string("com_1"))
+    
+    xx = await event.eor(get_string("com_1"))  # Show a loading message
     reply_to_id = event.reply_to_msg_id or event.id
     stdout, stderr = await bash(cmd, run_code=1)
     OUT = f"**☞ BASH\n\n• COMMAND:**\n`{cmd}` \n\n"
     err, out = "", ""
+    result_emoji = ""  # Initialize the emoji variable
+
     if stderr:
         err = f"**• ERROR:** \n`{stderr}`\n\n"
+        result_emoji = "❌"  # Task not done emoji
+    else:
+        result_emoji = "✅"  # Task done emoji
+
     if stdout:
         if (carb or udB.get_key("CARBON_ON_BASH")) and (
             event.is_private
@@ -93,28 +100,6 @@ async def _(event):
                 file_name="bash",
                 download=True,
                 backgroundColor=choice(ATRA_COL),
-            )
-            if isinstance(li, dict):
-                await xx.edit(
-                    f"Unknown Response from Carbon: `{li}`\n\nstdout`:{stdout}`\nstderr: `{stderr}`"
-                )
-                return
-            url = f"https://graph.org{uf(li)[-1]}"
-            OUT = f"[\xad]({url}){OUT}"
-            out = "**• OUTPUT:**"
-            remove(li)
-        elif (rayso or udB.get_key("RAYSO_ON_BASH")) and (
-            event.is_private
-            or event.chat.admin_rights
-            or event.chat.creator
-            or event.chat.default_banned_rights.embed_links
-        ):
-            li = await Carbon(
-                code=stdout,
-                file_name="bash",
-                download=True,
-                backgroundColor=choice(ATRA_COL),
-                rayso=True,
             )
             if isinstance(li, dict):
                 await xx.edit(
@@ -144,7 +129,9 @@ async def _(event):
             out = f"**• OUTPUT:**\n{stdout}"
     if not stderr and not stdout:
         out = "**• OUTPUT:**\n`Success`"
-    OUT += err + out
+
+    OUT += err + out + f"\n\n**Status:** {result_emoji}"  # Add the status emoji
+
     if len(OUT) > 4096:
         ultd = err + out
         with BytesIO(str.encode(ultd)) as out_file:
@@ -158,10 +145,10 @@ async def _(event):
                 caption=f"`{cmd}`" if len(cmd) < 998 else None,
                 reply_to=reply_to_id,
             )
-
-            await xx.delete()
+        await xx.delete()
     else:
         await xx.edit(OUT, link_preview=not yamlf)
+
 
 
 pp = pprint  # ignore: pylint
