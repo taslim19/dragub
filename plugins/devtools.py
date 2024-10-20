@@ -77,7 +77,7 @@ async def _(event):
     xx = await event.eor("Executing your command...")  # Initial feedback
     reply_to_id = event.reply_to_msg_id or event.id
     stdout, stderr = await bash(cmd, run_code=1)
-    
+
     # Prepare output
     OUT = f"**☞ BASH\n\n• COMMAND:**\n`{cmd}` \n\n"
     err, out = "", ""
@@ -137,7 +137,6 @@ async def _(event):
         await xx.delete()
     else:
         await xx.edit(OUT, link_preview=not yamlf)
-
 
 
 pp = pprint  # ignore: pylint
