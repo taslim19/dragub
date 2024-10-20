@@ -155,6 +155,8 @@ def db_usage():
         total = 30
     elif udB.name == "SQL":
         total = 20
+    elif udB.name == "localdb":  # Add support for localdb
+        total = 100  # Set an arbitrary total for localdb, adjust as needed
     else:
         return f"**Unsupported Database Type:** {udB.name}"  # Optional error message
 
