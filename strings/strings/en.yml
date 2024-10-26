@@ -167,12 +167,11 @@ afk_5: "**I'm Going AFK.**\n\n**Reason:** `{}`"
 afk_6: "**I'm Going AFK.**"
 
 # bot
-bot_1: "Hey,  I am alive."
 bot_2: "Stats"
 bot_3: "Repo"
 bot_4: "Support"
 bot_5: "• `Restarting...`"
-alive_1: "**{}**\n\n┏━━━━━━━━━━━━━━━━━━━━━\n┣ **🍓 Owner** - `{}`\n┣ **🍓 Version** - `{}`\n┣ **🍓 Py-Ultroid** - `{}`\n┣ **🍓 UpTime** - `{}`\n┣ **🍓 Python** - `{}`\n┣ **🍓 Telethon** - `{}`\n┣ **🍓 Branch** - `{}`\n┗━━━━━━━━━━━━━━━━━━━━━"
+alive_1: "**{}**\n\n┏━━━━━━━━━━━━━━━━┓\n┃ **🍓 𝓼𝓮𝓷𝓼𝓮𝓲** - `{}`\n┃ **🍓 𝓥𝓮𝓻𝓼𝓲𝓸𝓷** - `{}`\n┃ **🍓 𝓟𝔂-𝓤𝓵𝓽𝓻𝓸𝓲𝓭** - `{}`\n┃ **🍓 𝓤𝓹𝓣𝓲𝓶𝓮** - `{}`\n┃ **🍓 𝓟𝔂𝓽𝓱𝓸𝓷** - `{}`\n┃ **🍓 𝓣𝓮𝓵𝓮𝓽𝓱𝓸𝓷** - `{}`\n┃ **🍓 𝓑𝓻𝓪𝓷𝓬𝓱** - `{}`\n┗━━━━━━━━━━━━━━━━┛"
 log: "**Heroku** Ultroid Logs.\nPasted [here]({}) too!"
 ping: "**🥵 pong!!** `{}ms`\n**🤯Uptime** - `{}`"
 usage: "**⚙️ Dyno Usage ⚙️**:\n\n-> **Dyno usage for** `{}`:\n  •  **{}h**  **{}m |** `[{}%]`\n-> **Dyno hours quota remaining this month**:\n  •  **{}h**  **{}m |** `[{}%]`\n\n**Total Disk Space**: `{}`\n**Used**: `{}`\n**Free**: `{}`\n\n**📊 Data Usage 📊**\n**Upload**: `{}`\n**Down**: `{}`\n\n**CPU**: `{}%`\n**RAM**: `{}%`\n**DISK**: `{}%`"
