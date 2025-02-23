@@ -66,8 +66,8 @@ Get the [Necessary Variables](#Necessary-Variables) and then click the button be
 `virtualenv -p /usr/bin/python3 venv`
 `. ./venv/bin/activate`
 - Install the requirements:      
-`pip(3) install -U -r re*/st*/optional-requirements.txt`
-`pip(3) install -U -r requirements.txt`
+`pip3 install -U -r re*/st*/optional-requirements.txt`
+`pip3 install -U -r requirements.txt`
 - Generate your `SESSION`:
   - For Linux users:
     `bash sessiongen`
